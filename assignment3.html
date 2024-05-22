@@ -1,0 +1,42 @@
+<!-- Write a JavaScript code that starts to execute on a button click and will open 
+    a particular url in multiple new tabs (say 5) and close them after a certain interval recursively. 
+The script should stop its execution onclick of another button on the same page. -->
+
+<html>
+  <head>
+    <title>Assignment 3</title>
+  </head>
+
+  <body>
+    <div>
+      <button type="button" onclick="operatetabs(1)">Open Tabs</button>
+      <button type="button" onclick="operatetabs(2)">Close Tabs</button>
+    </div>
+
+    <script>
+      let arr = [];
+      const operatetabs = (ch) => {
+        switch (ch) {
+          case 1:
+            for (let i = 0; i < 5; i++) {
+              let ref = window.open("https://www.google.com");
+              arr.push(ref);
+            }
+            setTimeout(() => {
+                console.log("timer started")
+              for (let i = 4; i >= 0; i--) {
+                arr[i].close();
+                arr.pop();
+              }
+            }, 10000);
+            break;
+          case 2:
+            for (let i = 0; i < 5; i++) {
+              arr[i].close();
+            }
+            break;
+        }
+      };
+    </script>
+  </body>
+</html>
