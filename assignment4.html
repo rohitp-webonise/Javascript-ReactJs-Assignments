@@ -1,0 +1,102 @@
+<!-- Create a simple form that will accept name and email of a user and onsubmit, 
+    stores the details with the current timestamp. User can add multiple name and email sets. 
+    There should  be a button "SHOW USERS" which will list all the name and email sets with their timestamp 
+    in the document. Form should be validated before submission else it should show an error. 
+
+        Name: can accept character or numbers
+        Email: can accept a genuine email only. -->
+
+<html>
+  <head>
+    <title>Fill Details</title>
+  </head>
+  <style>
+    form {
+      width: 600px;
+      margin: 200px auto;
+    }
+    div {
+      width: 100px;
+      margin: 15px auto;
+    }
+    button {
+      width: 90;
+      margin: auto;
+    }
+  </style>
+
+  <body>
+    <form
+      name="form1"
+      style="
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        margin-top: 100px;
+      "
+    >
+      <div class="name">
+        <label> Name : </label>
+        <input id="name" type="text" placeholder="Enter name" />
+        <span></span>
+      </div>
+
+      <div class="email">
+        <label> Email ID :</label>
+        <input id="email" type="email" placeholder="Enter Mail" />
+        <span></span>
+      </div>
+
+      <button type="submit" onclick="addSession()">Submit</button>
+      <button style="margin: 10px auto" type="button" onclick="show()">
+        Show User
+      </button>
+
+      <div id="show" style="margin: 50px auto; width: 400px"></div>
+    </form>
+  </body>
+
+  <script>
+    const addSession = () => {
+      var newobj = new Object();
+      var date = new Date();
+      newobj.time = date.toLocaleString();
+      newobj.name = document.getElementById("name").value;
+      newobj.email = document.getElementById("email").value;
+    
+      if (!newobj.name || !newobj.email) {
+        return;
+      }
+
+      if (sessionStorage.data) {
+        data = JSON.parse(sessionStorage.getItem("data"));
+      } else {
+        data = [];
+      }
+
+      data.push(newobj);
+
+      sessionStorage.setItem("data", JSON.stringify(data));
+
+      var retrivedata = sessionStorage.getItem("data");
+
+      console.log(JSON.parse(retrivedata));
+    };
+
+    const show = () => {
+      var retrive = sessionStorage.getItem("data");
+      retrive = JSON.parse(retrive);
+      console.log(retrive);
+      var main = document.getElementById("show");
+
+      retrive.map((item) => {
+        var newli = document.createElement("li");
+        newli.setAttribute("style", "margin: 30px auto");
+
+        newli.innerHTML = `Time : ${item.time} , User : ${item.name} , Email: ${item.email}`;
+
+        main.appendChild(newli);
+      });
+    };
+  </script>
+</html>
