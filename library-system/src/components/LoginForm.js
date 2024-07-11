@@ -10,14 +10,19 @@ const LoginForm = ({ onSignIn }) => {
 
   const handleSignIn = (e) => {
     e.preventDefault();
-    // Validate username and password
-    if (username.length === 5 && password.match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8}$/)) {
-      onSignIn(username);
-      navigate('/books');
+    
+    if (
+        username.length === 5 &&
+        password.match(/^(?=.*[A-Za-z])(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8}$/)
+    ) {
+        onSignIn(username);
+        navigate('/books');
     } else {
-      alert('Invalid username or password format.');
+        alert('Invalid username or password format.');
     }
-  };
+};
+
+
   
 
   return (
